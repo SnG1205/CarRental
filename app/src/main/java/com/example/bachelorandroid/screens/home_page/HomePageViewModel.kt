@@ -31,7 +31,7 @@ class HomePageViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            if (repository.getAllClients() == null) {
+            if (repository.getAllClients().isEmpty()) {
                 repository.insertClient(
                     Client(
                     firstName = "Serhii",
