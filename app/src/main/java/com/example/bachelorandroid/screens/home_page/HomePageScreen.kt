@@ -55,7 +55,7 @@ fun HomePageScreen(
         topBar = {
             TopAppBar(
                 elevation = 3.dp,
-                backgroundColor = Color.Red,
+                backgroundColor = Color(0xFFD50000),
             ) {
                 Text(text = "Banking App", style = MaterialTheme.typography.h5, color = Color.White)
             }
@@ -122,9 +122,6 @@ fun HomePageScreen(
                     fontSize = 20.sp,
                     color = Color(0xFF512DA8)
                 )
-            }
-            if (viewModel.visible) {
-                Text(text = viewModel.firstName)
             }
         }
     }

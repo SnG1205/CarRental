@@ -62,7 +62,11 @@ fun CreateUserPageScreen(
                 elevation = 3.dp,
                 backgroundColor = Color(0xFF2962FF), //Todo change color
             ) {
-                Row() {
+                Row(
+                    modifier = Modifier,
+                    Arrangement.Absolute.Left,
+                    Alignment.CenterVertically
+                ) {
                     Icon(imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Arrow Back",
                         tint = Color.White,

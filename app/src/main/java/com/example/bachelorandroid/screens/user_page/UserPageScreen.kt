@@ -1,11 +1,15 @@
 package com.example.bachelorandroid.screens.user_page
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -17,9 +21,12 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bachelorandroid.util.UiEvent
 
@@ -51,11 +58,12 @@ fun UserPageScreen(
         topBar = {
             TopAppBar(
                 elevation = 3.dp,
-                backgroundColor = Color.Cyan, //Todo change color
+                backgroundColor = Color(0xFF2962FF), //Todo change color
             ) {
                 Row() {
                     Icon(imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Arrow Back",
+                        tint = Color.White,
                         modifier = Modifier.clickable {
                             viewModel.popBack()
                         })
@@ -65,7 +73,7 @@ fun UserPageScreen(
                     Text(
                         text = "Welcome, ${viewModel.firstName}!",
                         style = MaterialTheme.typography.h5,
-                        color = Color.Yellow
+                        color = Color.White
                     )
                 }
             }
@@ -73,13 +81,44 @@ fun UserPageScreen(
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .padding(5.dp)
+                .fillMaxSize(),
+            Arrangement.Top,
+            Alignment.CenterHorizontally
         ) {
-            Text(text = "Please choose one of the options below.")
-            Button(onClick = { viewModel.navigateToBuyShares() }) {
+            Text(
+                modifier = Modifier
+                    .padding(5.dp,20.dp,5.dp, 70.dp),
+                text = "Please choose one of the options below.",
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp
+            )
+            Button(
+                modifier = Modifier
+                    .width(170.dp)
+                    .height(90.dp)
+                    .padding(0.dp, 0.dp, 0.dp, 45.dp),
+                colors = androidx.compose.material.ButtonDefaults.buttonColors(
+                    backgroundColor = Color(0xFFF4511E),
+                    contentColor = Color.White
+                ),
+                shape = RoundedCornerShape(50),
+                onClick = { viewModel.navigateToBuyShares() }
+            ) {
                 Text("Buy shares")
             }
-            Button(onClick = { viewModel.navigateToShowDepot() }) {
+            Button(
+                modifier = Modifier
+                    .width(170.dp)
+                    .height(70.dp)
+                    .padding(0.dp, 0.dp, 0.dp, 25.dp),
+                colors = androidx.compose.material.ButtonDefaults.buttonColors(
+                    backgroundColor = Color(0xFFF4511E),
+                    contentColor = Color.White
+                ),
+                shape = RoundedCornerShape(50),
+                onClick = { viewModel.navigateToShowDepot() }
+            ) {
                 Text("Show my depot")
             }
         }

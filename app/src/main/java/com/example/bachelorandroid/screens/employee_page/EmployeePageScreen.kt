@@ -63,7 +63,11 @@ fun EmployeePageScreen(
                 elevation = 3.dp,
                 backgroundColor = Color(0xFF2962FF), //Todo change color
             ) {
-                Row() {
+                Row(
+                    modifier = Modifier,
+                    Arrangement.Absolute.Left,
+                    Alignment.CenterVertically
+                ) {
                     Icon(imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Arrow Back",
                         tint = Color.Yellow,
@@ -103,7 +107,7 @@ fun EmployeePageScreen(
             Button(
                 modifier = Modifier
                     .width(170.dp)
-                    .height(60.dp)
+                    .height(65.dp)
                     .padding(0.dp, 0.dp, 0.dp, 25.dp),
                 colors = androidx.compose.material.ButtonDefaults.buttonColors(
                     backgroundColor = Color(0xFFF3E5F5),
@@ -117,7 +121,7 @@ fun EmployeePageScreen(
             Button(
                 modifier = Modifier
                     .width(170.dp)
-                    .height(60.dp)
+                    .height(65.dp)
                     .padding(0.dp, 0.dp, 0.dp, 25.dp),
                 colors = androidx.compose.material.ButtonDefaults.buttonColors(
                     backgroundColor = Color(0xFFF3E5F5),
@@ -131,7 +135,7 @@ fun EmployeePageScreen(
             Button(
                 modifier = Modifier
                     .width(170.dp)
-                    .height(60.dp)
+                    .height(65.dp)
                     .padding(0.dp, 0.dp, 0.dp, 25.dp),
                 colors = androidx.compose.material.ButtonDefaults.buttonColors(
                     backgroundColor = Color(0xFFF3E5F5),
@@ -145,7 +149,7 @@ fun EmployeePageScreen(
             Button(
                 modifier = Modifier
                     .width(170.dp)
-                    .height(60.dp)
+                    .height(65.dp)
                     .padding(0.dp, 0.dp, 0.dp, 25.dp),
                 colors = androidx.compose.material.ButtonDefaults.buttonColors(
                     backgroundColor = Color(0xFFF3E5F5),
@@ -159,8 +163,8 @@ fun EmployeePageScreen(
             Button(
                 modifier = Modifier
                     .width(170.dp)
-                    .height(60.dp)
-                    .padding(0.dp, 0.dp, 0.dp, 20.dp),
+                    .height(65.dp)
+                    .padding(0.dp, 0.dp, 0.dp, 25.dp),
                 colors = androidx.compose.material.ButtonDefaults.buttonColors(
                     backgroundColor = Color(0xFFF3E5F5),
                     contentColor = Color(0xFF424242)

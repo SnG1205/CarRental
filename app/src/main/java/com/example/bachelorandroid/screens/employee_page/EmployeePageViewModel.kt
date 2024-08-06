@@ -38,7 +38,7 @@ class EmployeePageViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            firstName = repository.getClientById(id!!).firstName
+            firstName = repository.getClientById(id!!)!!.firstName
             try{
                 balance = repository.getBalance().balance
             }
@@ -96,7 +96,9 @@ class EmployeePageViewModel @Inject constructor(
         try{
             val parsedClientId = clientId.toInt()
             viewModelScope.launch {
-                repository.getClientById(parsedClientId)
+                if(repository.getClientById(parsedClientId) == null) {
+                    throw Exception()
+                }
             }
             sendUiEvent(UiEvent.Navigate(Routes.DEPOT_PAGE + "?clientId=${parsedClientId}"))
             clientId = ""

@@ -1,10 +1,13 @@
 package com.example.bachelorandroid.screens.depot_page
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,10 +22,12 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bachelorandroid.util.UiEvent
 
@@ -54,9 +59,13 @@ fun DepotPageScreen(
         topBar = {
             TopAppBar(
                 elevation = 3.dp,
-                backgroundColor = Color.Cyan, //Todo change color
+                backgroundColor = Color(0xFF2962FF), //Todo change color
             ) {
-                Row() {
+                Row(
+                    modifier = Modifier,
+                    Arrangement.Absolute.Left,
+                    Alignment.CenterVertically
+                ) {
                     Icon(imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Arrow Back",
                         tint = Color.White,
@@ -80,11 +89,57 @@ fun DepotPageScreen(
                 .fillMaxSize()
                 .padding(10.dp)
         ) {
-            Row {
-                Text(text = "Nr.", fontWeight = FontWeight.Bold)
-                Text(text = "Symbols", fontWeight = FontWeight.Bold)
-                Text(text = "Amount", fontWeight = FontWeight.Bold)
-                Text(text = "Price", fontWeight = FontWeight.Bold)
+            Row(
+                modifier = Modifier
+                    .padding(5.dp, 0.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .width(45.dp)
+                        .height(30.dp)
+                        .padding(0.dp, 0.dp, 15.dp, 0.dp),
+                ) {
+                    Text(
+                        text = "Nr.",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp
+                    )
+                }
+                Box(
+                    modifier = Modifier
+                        .width(120.dp)
+                        .height(30.dp)
+                        .padding(0.dp, 0.dp, 20.dp, 0.dp),
+                ) {
+                    Text(
+                        text = "Symbols",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp
+                    )
+                }
+                Box(
+                    modifier = Modifier
+                        .width(110.dp)
+                        .height(30.dp)
+                        .padding(0.dp, 0.dp, 10.dp, 0.dp),
+                ) {
+                    Text(
+                        text = "Amount",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp
+                    )
+                }
+                Box(
+                    modifier = Modifier
+                        .width(100.dp)
+                        .height(30.dp)
+                ) {
+                    Text(
+                        text = "Price",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp
+                    )
+                }
             }
             LazyColumn {
                 items(viewModel.stocks) { stock ->
@@ -97,12 +152,15 @@ fun DepotPageScreen(
                 }
             }
             Text(
+                modifier = Modifier
+                    .padding(0.dp, 0.dp, 0.dp, 10.dp),
                 text = "Total price of Your depot is: ${
                     String.format(
                         "%.2f",
                         viewModel.totalAmount
                     )
-                }"
+                }",
+                fontSize = 20.sp
             )
         }
     }

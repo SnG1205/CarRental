@@ -38,7 +38,7 @@ class DepotPageViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            clientName = repository.getClientById(id!!).firstName
+            clientName = repository.getClientById(id!!)!!.firstName
             stocks = repository.getStocksByClientId(id).toMutableList()
             stocks.forEach { totalAmount += it.amount.toDouble() * it.price }
         }

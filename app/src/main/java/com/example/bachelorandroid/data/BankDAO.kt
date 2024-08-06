@@ -5,7 +5,6 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BankDAO {
@@ -31,13 +30,16 @@ interface BankDAO {
     suspend fun updateBalance(balance: Balance)*/
 
     @Query("SELECT * FROM clients")
-    suspend fun getAllClients(): List<Client> //TODO Maybe return Flow and get rid of suspend
+    suspend fun getAllUsers(): List<Client> //TODO Maybe return Flow and get rid of suspend
+
+    @Query("SELECT * FROM clients WHERE isEmployee = false")
+    suspend fun getAllClients(): List<Client>
 
     @Query("SELECT * FROM clients WHERE firstName = :firstName AND lastName = :lastName") //Todo maybe change to camel case (Search in room doc ??)
     suspend fun getClientByFullName(firstName: String, lastName: String): Client //Todo mb return as Flow<Client>
 
     @Query("SELECT * FROM clients WHERE id = :id")
-    suspend fun getClientById(id: Int): Client
+    suspend fun getClientById(id: Int): Client?
 
     @Query("SELECT * FROM stocks")
     suspend fun getAllStocks(): List<Stock> //TODO Maybe return Flow and get rid of suspend
