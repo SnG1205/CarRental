@@ -56,7 +56,7 @@ class BuyStockPageViewModel @Inject constructor(
     fun findStock() {
         viewModelScope.launch {
             try {
-                val date = LocalDate.now().minusDays(2)
+                val date = LocalDate.now().minusDays(4) //Note from 06.08: for some reason stopped working if date is earlier than 3 days before actual. Either new terms of use or some problem in API.
                 apiResponse = StockService.retrofitService.fetchStockPrices(
                     stockSymbols,
                     date.toString()

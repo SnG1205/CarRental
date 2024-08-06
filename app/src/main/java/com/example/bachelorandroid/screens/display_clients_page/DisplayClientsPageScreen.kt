@@ -47,7 +47,7 @@ fun DisplayClientsPageScreen(
         topBar = {
             TopAppBar(
                 elevation = 3.dp,
-                backgroundColor = Color.Cyan, //Todo change color
+                backgroundColor = Color(0xFF2962FF), //Todo change color
             ) {
                 Row() {
                     Icon(imageVector = Icons.Default.ArrowBack,
@@ -59,7 +59,7 @@ fun DisplayClientsPageScreen(
 
                     Spacer(modifier = Modifier.width(20.dp))
 
-                    Text(text = "List of clients", style = MaterialTheme.typography.h5, color = Color.White)
+                    Text(text = "List of clients", style = MaterialTheme.typography.h5, color = Color.White, fontWeight = FontWeight.Bold)
                 }
             }
         }
