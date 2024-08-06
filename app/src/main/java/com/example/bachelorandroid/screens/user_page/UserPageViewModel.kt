@@ -30,7 +30,7 @@ class UserPageViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            firstName = repository.getClientById(id!!)!!.firstName
+            firstName = repository.getClientById(id!!).firstName
         }
     }
 

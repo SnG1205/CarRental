@@ -39,7 +39,7 @@ class BankRepository(
         return dao.getClientByFullName(firstName, lastName)
     }
 
-    suspend fun getClientById(id: Int): Client?{
+    suspend fun getClientById(id: Int): Client{
         return dao.getClientById(id)
     }
 
