@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.bachelorandroid'
+    namespace 'com.example.carrentalapp'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.bachelorandroid"
+        applicationId "com.example.carrentalapp"
         minSdk 24
         targetSdk 34
         versionCode 1
