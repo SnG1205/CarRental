@@ -1,4 +1,4 @@
-package com.example.carrentalapp.screens.display_clients_page
+package com.example.carrentalapp.screens.display_users_page
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,11 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.carrentalapp.data.Client
+import com.example.carrentalapp.data.User
 
 @Composable
-fun ClientsItem(
-    client: Client,
+fun UsersItem(
+    user: User, //Todo change entity to user
 ) {
     Row(
         modifier = Modifier
@@ -31,7 +31,7 @@ fun ClientsItem(
                 .height(30.dp)
         ) {
             Text(
-                text = client.id.toString(),
+                text = user.id.toString(),
                 fontSize = 20.sp,
             )
         }
@@ -42,29 +42,18 @@ fun ClientsItem(
                 .padding(0.dp, 0.dp, 10.dp, 0.dp),
         ) {
             Text(
-                text = client.firstName,
+                text = user.username,
                 fontSize = 20.sp,
             )
         }
         Box(
             modifier = Modifier
-                .width(100.dp)
+                .width(250.dp)
                 .height(30.dp)
                 .padding(0.dp, 0.dp, 10.dp, 0.dp),
         ) {
             Text(
-                text = client.lastName,
-                fontSize = 20.sp,
-            )
-        }
-        Box(
-            modifier = Modifier
-                .width(100.dp)
-                .height(30.dp)
-                .padding(0.dp, 0.dp, 10.dp, 0.dp),
-        ){
-            Text(
-                text = client.address!!,
+                text = user.email,
                 fontSize = 20.sp,
             )
         }

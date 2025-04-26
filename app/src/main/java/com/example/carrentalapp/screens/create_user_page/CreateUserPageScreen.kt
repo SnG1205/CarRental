@@ -28,21 +28,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.carrentalapp.util.UiEvent
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.input.OffsetMapping
+import androidx.compose.ui.text.input.TransformedText
 
 @Composable
 fun CreateUserPageScreen(
     onPopBackStack: () -> Unit,
     viewModel: CreateUserPageViewModel = hiltViewModel()
-){
+) {
     val scaffoldState = rememberScaffoldState()
 
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
-            when(event) {
+            when (event) {
                 is UiEvent.PopBackStack -> onPopBackStack()
                 is UiEvent.ShowSnackbar -> {
                     scaffoldState.snackbarHostState.showSnackbar(
@@ -50,6 +54,7 @@ fun CreateUserPageScreen(
                         actionLabel = event.action
                     )
                 }
+
                 else -> Unit
             }
         }
@@ -76,11 +81,16 @@ fun CreateUserPageScreen(
 
                     Spacer(modifier = Modifier.width(20.dp))
 
-                    Text(text = "Client creation", style = MaterialTheme.typography.h5, color = Color.White, fontWeight = FontWeight.Bold)
+                    Text(
+                        text = "User creation",
+                        style = MaterialTheme.typography.h5,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
         }
-    ){
+    ) {
         Column(
             modifier = Modifier
                 .padding(5.dp)
@@ -91,7 +101,7 @@ fun CreateUserPageScreen(
             Text(
                 modifier = Modifier
                     .padding(0.dp, 5.dp, 0.dp, 10.dp),
-                text = "Write full name of the client below",
+                text = "Write information about the user below",
                 fontSize = 20.sp
             )
             TextField(
@@ -101,9 +111,9 @@ fun CreateUserPageScreen(
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = Color.White
                 ),
-                value = viewModel.firstName,
+                value = viewModel.username,
                 placeholder = {
-                    Text(text = "Enter first name of the client")
+                    Text(text = "Enter Your username")
                 },
                 onValueChange = {
                     viewModel.changeFirstName(it)
@@ -116,12 +126,12 @@ fun CreateUserPageScreen(
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = Color.White
                 ),
-                value = viewModel.lastName,
+                value = viewModel.email,
                 placeholder = {
-                    Text(text = "Enter last name of the client")
+                    Text(text = "Enter Your email address")
                 },
                 onValueChange = {
-                    viewModel.changeLastName(it)
+                    viewModel.changeEmail(it)
                 }
             )
             TextField(
@@ -131,14 +141,33 @@ fun CreateUserPageScreen(
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = Color.White
                 ),
-                value = viewModel.address,
+                value = viewModel.password,
+                visualTransformation = VisualTransformation {
+                    TransformedText(
+                        AnnotatedString("*".repeat(it.length)),
+                        OffsetMapping.Identity)
+                },
                 placeholder = {
-                    Text(text = "Enter address of the client")
+                    Text(text = "Enter Your password")
                 },
                 onValueChange = {
-                    viewModel.changeAddress(it)
+                    viewModel.changePassword(it)
                 }
             )
+            Button(
+                modifier = Modifier
+                    .width(170.dp)
+                    .height(70.dp)
+                    .padding(0.dp, 0.dp, 0.dp, 25.dp),
+                colors = androidx.compose.material.ButtonDefaults.buttonColors(
+                    backgroundColor = Color(0xFFF4511E),
+                    contentColor = Color.White
+                ),
+                shape = RoundedCornerShape(50),
+                onClick = { viewModel.createUser() }
+            ) {
+                Text(text = "Create user", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+            }
         }
     }
 }

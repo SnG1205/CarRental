@@ -12,10 +12,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.carrentalapp.screens.add_car_page.AddCarPageScreen
 import com.example.carrentalapp.screens.buy_stock_page.BuyStockPageScreen
 import com.example.carrentalapp.screens.create_user_page.CreateUserPageScreen
 import com.example.carrentalapp.screens.depot_page.DepotPageScreen
-import com.example.carrentalapp.screens.display_clients_page.DisplayClientsPageScreen
+import com.example.carrentalapp.screens.display_users_page.DisplayUsersPageScreen
 import com.example.carrentalapp.screens.employee_page.EmployeePageScreen
 import com.example.carrentalapp.screens.home_page.HomePageScreen
 import com.example.carrentalapp.screens.sell_stock_page.SellStockPageScreen
@@ -47,7 +48,8 @@ class MainActivity : ComponentActivity() {
                                 })
                         }
                         composable(
-                            route = Routes.EMPLOYEE_PAGE + "?id={id}",
+                            //Todo mb delete an ID since there is only one admin rn
+                            route = Routes.ADMIN_PAGE + "?id={id}",
                             arguments = listOf(
                                 navArgument(name = "id") {
                                     type = NavType.IntType
@@ -83,7 +85,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(
-                            route = Routes.CREATE_USER_PAGE
+                            route = Routes.REGISTER_PAGE
                         ) {
                             CreateUserPageScreen(
                                 onPopBackStack = {
@@ -92,9 +94,18 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(
-                            route = Routes.DISPLAY_CLIENTS_PAGE
+                            route = Routes.DISPLAY_USERS_PAGE
                         ) {
-                            DisplayClientsPageScreen(
+                            DisplayUsersPageScreen(
+                                onPopBackStack = {
+                                    navController.popBackStack()
+                                }
+                            )
+                        }
+                        composable(
+                            route = Routes.ADD_CAR_PAGE
+                        ){
+                            AddCarPageScreen(
                                 onPopBackStack = {
                                     navController.popBackStack()
                                 }

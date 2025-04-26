@@ -9,7 +9,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.carrentalapp.api.StockApi
-import com.example.carrentalapp.api.StockService
 import com.example.carrentalapp.data.Stock
 import com.example.carrentalapp.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -49,7 +48,7 @@ class BuyStockPageViewModel @Inject constructor(
         this.amount = amount
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    /*@RequiresApi(Build.VERSION_CODES.O)
     fun findStock() {
         viewModelScope.launch {
             try {
@@ -73,7 +72,7 @@ class BuyStockPageViewModel @Inject constructor(
                 stockSymbols = ""
             }
         }
-    }
+    }*/
 
 
     private fun sendUiEvent(event: UiEvent) {

@@ -1,4 +1,4 @@
-package com.example.carrentalapp.screens.display_clients_page
+package com.example.carrentalapp.screens.display_users_page
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +20,8 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,13 +32,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.carrentalapp.util.UiEvent
 
 @Composable
-fun DisplayClientsPageScreen(
+fun DisplayUsersPageScreen(
     onPopBackStack: () -> Unit,
-    viewModel: DisplayClientsPageViewModel = hiltViewModel()
+    viewModel: DisplayUsersPageViewModel = hiltViewModel()
 ) {
+
+    val usersFlow by viewModel.usersFlow.collectAsState()
     val scaffoldState = rememberScaffoldState()
 
     LaunchedEffect(key1 = true) {
+        viewModel.fetch()
         viewModel.uiEvent.collect { event ->
             when (event) {
                 is UiEvent.PopBackStack -> onPopBackStack()
@@ -67,7 +72,7 @@ fun DisplayClientsPageScreen(
                     Spacer(modifier = Modifier.width(20.dp))
 
                     Text(
-                        text = "List of clients",
+                        text = "List of users",
                         style = MaterialTheme.typography.h5,
                         color = Color.White,
                         fontWeight = FontWeight.Bold
@@ -96,30 +101,23 @@ fun DisplayClientsPageScreen(
                 Text(
                     modifier = Modifier
                         .padding(10.dp, 0.dp, 10.dp, 0.dp),
-                    text = "First Name",
+                    text = "Username",
                     fontWeight = FontWeight.Bold,
                     fontSize = 17.sp,
                 )
                 Text(
                     modifier = Modifier
                         .padding(10.dp, 0.dp, 10.dp, 0.dp),
-                    text = "Last Name",
+                    text = "Email",
                     fontWeight = FontWeight.Bold,
                     fontSize = 17.sp,
                     )
-                Text(
-                    modifier = Modifier
-                        .padding(10.dp, 0.dp, 10.dp, 0.dp),
-                    text = "Address",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp,
-                )
             }
             LazyColumn(
                 modifier = Modifier.fillMaxSize()
             ) {
-                items(viewModel.clients) { client ->
-                    ClientsItem(client = client)
+                items(usersFlow) { user ->
+                    UsersItem(user = user)
                 }
             }
         }

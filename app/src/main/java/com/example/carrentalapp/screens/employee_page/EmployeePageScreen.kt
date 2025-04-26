@@ -24,10 +24,14 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.carrentalapp.util.UiEvent
 
@@ -38,6 +42,7 @@ fun EmployeePageScreen(
     viewModel: EmployeePageViewModel = hiltViewModel()
 ){
     val scaffoldState = rememberScaffoldState()
+    val token by viewModel.token.collectAsState()
 
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
@@ -68,46 +73,35 @@ fun EmployeePageScreen(
                 ) {
                     Icon(imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Arrow Back",
-                        tint = Color.Yellow,
+                        tint = Color.White,
                         modifier = Modifier.clickable {
                             viewModel.popBack()
                         })
 
                     Spacer(modifier = Modifier.width(20.dp))
 
-                    Text(text = "Welcome, ${viewModel.firstName}", style = MaterialTheme.typography.h5, color = Color(0xFFFFEA00))
+                    Text(
+                        text = "Admin panel",
+                        style = MaterialTheme.typography.h5,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
         }
     ){
         Column(
             modifier = Modifier
-                .padding(5.dp)
+                .padding(5.dp, 190.dp, 5.dp, 5.dp)
                 .fillMaxSize(),
             Arrangement.Top,
             Alignment.CenterHorizontally
         ) {
-            TextField(
-                modifier = Modifier
-                    .padding(0.dp, 15.dp, 0.dp, 25.dp)
-                    .border(0.8.dp, Color.Black, RoundedCornerShape(5)),
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.White
-                ),
-                value = viewModel.clientId,
-                placeholder = {
-                    Text(text = "Enter id of the client")
-                },
-                onValueChange = {
-                    viewModel.changeClientId(it)
-                }
-            )
-
             Button(
                 modifier = Modifier
-                    .width(170.dp)
-                    .height(65.dp)
-                    .padding(0.dp, 0.dp, 0.dp, 25.dp),
+                    .width(230.dp)
+                    .height(130.dp)
+                    .padding(0.dp, 0.dp, 0.dp, 60.dp),
                 colors = androidx.compose.material.ButtonDefaults.buttonColors(
                     backgroundColor = Color(0xFFF3E5F5),
                     contentColor = Color(0xFF424242)
@@ -115,36 +109,51 @@ fun EmployeePageScreen(
                 shape = RoundedCornerShape(50),
                 onClick = { viewModel.createUser() }
             ) {
-                Text(text = "Create User")
+                Text(text = "Create User", fontSize = 25.sp)
             }
             Button(
                 modifier = Modifier
-                    .width(170.dp)
-                    .height(65.dp)
-                    .padding(0.dp, 0.dp, 0.dp, 25.dp),
+                    .width(230.dp)
+                    .height(130.dp)
+                    .padding(0.dp, 0.dp, 0.dp, 60.dp),
                 colors = androidx.compose.material.ButtonDefaults.buttonColors(
                     backgroundColor = Color(0xFFF3E5F5),
                     contentColor = Color(0xFF424242)
                 ),
                 shape = RoundedCornerShape(50),
-                onClick = { viewModel.displayClients() }
+                onClick = { viewModel.addCar() }
             ) {
-                Text(text = "Display Clients")
+                Text(text = "Add Car", fontSize = 25.sp)
             }
             Button(
                 modifier = Modifier
-                    .width(170.dp)
-                    .height(65.dp)
-                    .padding(0.dp, 0.dp, 0.dp, 25.dp),
+                    .width(230.dp)
+                    .height(130.dp)
+                    .padding(0.dp, 0.dp, 0.dp, 60.dp),
                 colors = androidx.compose.material.ButtonDefaults.buttonColors(
                     backgroundColor = Color(0xFFF3E5F5),
                     contentColor = Color(0xFF424242)
                 ),
                 shape = RoundedCornerShape(50),
-                onClick = { viewModel.showDepot() }
+                onClick = { viewModel.displayUsers() }
             ) {
-                Text(text = "Show Depot")
+                Text(text = "Display Users", fontSize = 25.sp)
             }
+            Button(
+                modifier = Modifier
+                    .width(230.dp)
+                    .height(130.dp)
+                    .padding(0.dp, 0.dp, 0.dp, 60.dp),
+                colors = androidx.compose.material.ButtonDefaults.buttonColors(
+                    backgroundColor = Color(0xFFF3E5F5),
+                    contentColor = Color(0xFF424242)
+                ),
+                shape = RoundedCornerShape(50),
+                onClick = { viewModel.displayCars() }
+            ) {
+                Text(text = "Display Cars", fontSize = 25.sp)
+            }
+            Text(text = token.toString())
         }
     }
 }

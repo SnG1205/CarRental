@@ -5,7 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.carrentalapp.data.Client
+import com.example.carrentalapp.api.CarRentalService
+import com.example.carrentalapp.data.User
 import com.example.carrentalapp.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -19,11 +20,11 @@ class CreateUserPageViewModel @Inject constructor(
     private val _uiEvent =  Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    var firstName by mutableStateOf("")
+    var username by mutableStateOf("")
         private set
-    var lastName by mutableStateOf("")
+    var email by mutableStateOf("")
         private set
-    var address by mutableStateOf("")
+    var password by mutableStateOf("")
         private set
 
     fun popBack(){
@@ -31,16 +32,50 @@ class CreateUserPageViewModel @Inject constructor(
     }
 
     fun changeFirstName(firstName: String){
-        this.firstName = firstName
+        this.username = firstName
     }
 
-    fun changeLastName(lastName: String){
-        this.lastName = lastName
+    fun changeEmail(email: String){
+        this.email = email
     }
 
-    fun changeAddress(address: String){
-        this.address = address
+    fun changePassword(password: String){
+        this.password = password
     }
+
+    fun createUser(){
+        if(!checkIfFieldsAreEmpty()){
+            viewModelScope.launch {
+                try {
+                    CarRentalService.retrofitService.createUser(
+                        User(username = username, email = email, password = password, id = null)
+                    )
+                    sendUiEvent(UiEvent.ShowSnackbar(
+                        message = "User was successfully created"
+                    ))
+                    username = ""
+                    email = ""
+                    password = ""
+                }
+                catch (e: Exception){
+                    sendUiEvent(UiEvent.ShowSnackbar(
+                        message = "Was not able to create a user"
+                    ))
+                }
+            }
+        }
+    }
+
+    private fun checkIfFieldsAreEmpty() : Boolean{
+        if (username == "" || email == "" || password == "" ){
+            sendUiEvent(UiEvent.ShowSnackbar(
+                message = "Fields can not be empty"
+            ))
+            return true
+        }
+        return false
+    }
+
 
     /*fun createUser(){
         try {

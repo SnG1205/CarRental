@@ -40,7 +40,6 @@ fun HomePageScreen(
                         actionLabel = event.action
                     )
                 }
-
                 else -> Unit
             }
         }
@@ -59,14 +58,14 @@ fun HomePageScreen(
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top,
+            verticalArrangement = Arrangement.Center,
             modifier = Modifier
                 .padding(5.dp)
                 .fillMaxSize()
         ) {
             Text(
                 modifier = Modifier
-                    .padding(0.dp, 20.dp, 0.dp, 10.dp),
+                    .padding(0.dp, 0.dp, 0.dp, 10.dp),
                 text = "Please enter Your credentials to login into Your account.",
                 fontWeight = FontWeight.Bold
             )
@@ -77,12 +76,12 @@ fun HomePageScreen(
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = Color.White
                 ),
-                value = viewModel.firstName,
+                value = viewModel.email,
                 placeholder = {
-                    Text(text = "First name")
+                    Text(text = "Email")
                 },
                 onValueChange = {
-                    viewModel.changeFirstName(it)
+                    viewModel.changeEmail(it)
                 })
             TextField(
                 modifier = Modifier
@@ -91,13 +90,62 @@ fun HomePageScreen(
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = Color.White
                 ),
-                value = viewModel.lastName,
+                value = viewModel.password,
                 placeholder = {
-                    Text(text = "Last name")
+                    Text(text = "Password")
                 },
                 onValueChange = {
-                    viewModel.changeLastName(it)
+                    viewModel.changePassword(it)
                 })
+            OutlinedButton(
+                modifier = Modifier
+                    .width(170.dp)
+                    .height(50.dp),
+                colors = androidx.compose.material.ButtonDefaults.buttonColors(
+                    backgroundColor = Color(0xffd5fa6b),
+                ),
+                border = BorderStroke(0.5.dp, Color.Black),
+                shape = RoundedCornerShape(50),
+                elevation = androidx.compose.material.ButtonDefaults.elevation(
+                    defaultElevation = 8.dp
+                ),
+                onClick = { viewModel.navigateToLogin() }
+            ) {
+                Text(
+                    text = "Login",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    color = Color(0xffcb5cfa)
+                )
+            }
+            Text(
+                modifier = Modifier
+                    .padding(0.dp, 30.dp, 0.dp, 15.dp),
+                text = "Don`t have an account yet? Create one below.",
+                //fontWeight = FontWeight.Bold
+            )
+            OutlinedButton(
+                modifier = Modifier
+                    .width(170.dp)
+                    .height(50.dp),
+                colors = androidx.compose.material.ButtonDefaults.buttonColors(
+                    backgroundColor = Color(0xffd5fa6b),
+                ),
+                border = BorderStroke(0.5.dp, Color.Black),
+                shape = RoundedCornerShape(50),
+                elevation = androidx.compose.material.ButtonDefaults.elevation(
+                    defaultElevation = 8.dp
+                ),
+                onClick = { viewModel.navigateToRegister() }
+            ) {
+                Text(
+                    text = "Register",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    color = Color(0xffcb5cfa)
+                )
+            }
+            Text(text = viewModel.token)
         }
     }
 }
