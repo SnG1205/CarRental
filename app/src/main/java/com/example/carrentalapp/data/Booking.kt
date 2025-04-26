@@ -6,8 +6,8 @@ data class Booking(
     val id : Long?,
     val user : User,
     val car : Car,
-    val startDate: LocalDate,
-    val endDate: LocalDate,
+    val startDate: String,
+    val endDate: String,
     val totalCostUsd: Double,
     val active: Boolean
 )

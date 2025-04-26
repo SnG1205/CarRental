@@ -20,19 +20,23 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.exp
 
 @HiltViewModel
 class UserPageViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
-    holder: SharedStringHolder
+    private val savedStateHandle: SavedStateHandle,
+    private val holder: SharedStringHolder
 ): ViewModel() {
     val id = savedStateHandle.get<Int>("id")
     val token: StateFlow<String?> = holder.token
+    val userId: StateFlow<Long?> = holder.userId
 
     private val _cars = MutableStateFlow<List<Car>>(emptyList())
     val carsFlow: StateFlow<List<Car>> = _cars.asStateFlow()
 
     var firstName by mutableStateOf("") //Todo try to initialize as null to then set a Client object inside init
+        private set
+    var expanded by mutableStateOf(false)
         private set
 
     private val _uiEvent =  Channel<UiEvent>()
@@ -46,8 +50,27 @@ class UserPageViewModel @Inject constructor(
         sendUiEvent(UiEvent.PopBackStack)
     }
 
-    fun navigateToBooking(){ //TODO change the route to booking page
-        sendUiEvent(UiEvent.Navigate(Routes.REGISTER_PAGE))
+    fun navigateToBooking(car: Car){ //TODO change the route to booking page
+        holder.setCarToBook(car)
+        sendUiEvent(UiEvent.Navigate(Routes.BOOK_CAR_PAGE))
+    }
+
+    fun toggleDropdownState(){
+        expanded = !expanded
+    }
+
+    fun setExpandedToFalse(){
+        expanded = false
+    }
+
+    fun navigateToActiveBookings(){
+        sendUiEvent(UiEvent.Navigate(Routes.DISPLAY_USER_ACTIVE_BOOKINGS_PAGE))
+        expanded = false
+    }
+
+    fun navigateToBookingsHistory(){
+        sendUiEvent(UiEvent.Navigate(Routes.DISPLAY_USER_BOOKINGS_HISTORY_PAGE))
+        expanded = false
     }
 
     private fun getAvailableCars(){

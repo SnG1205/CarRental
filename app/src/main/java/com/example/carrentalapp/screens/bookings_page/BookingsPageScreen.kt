@@ -1,4 +1,4 @@
-package com.example.carrentalapp.screens.user_page
+package com.example.carrentalapp.screens.bookings_page
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -20,8 +22,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -31,17 +31,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.carrentalapp.screens.user_page.CarItem
 import com.example.carrentalapp.util.UiEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
-fun UserPageScreen(
+fun BookingPageScreen(
     onPopBackStack: () -> Unit,
     onNavigate: (UiEvent.Navigate) -> Unit,
-    viewModel: UserPageViewModel = hiltViewModel()
-) {
+    viewModel: BookingsPageViewModel = hiltViewModel()
+){
     val scaffoldState = rememberScaffoldState()
-    val carsFlow by viewModel.carsFlow.collectAsState()
-    val userId by viewModel.userId.collectAsState()
+    val bookingsFlow by viewModel.bookingsFlow.collectAsState()
 
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
@@ -78,39 +79,12 @@ fun UserPageScreen(
                     Spacer(modifier = Modifier.width(20.dp))
 
                     Text(
-                        text = "Welcome, ${viewModel.firstName}!",
+                        text = "My Bookings!",
                         style = MaterialTheme.typography.h5,
                         color = Color.White,
                         modifier = Modifier
                             .padding(0.dp, 5.dp, 0.dp, 0.dp)
                     )
-                    Spacer(Modifier.weight(1f))
-                    Box {
-                        IconButton(onClick = { viewModel.toggleDropdownState() }) {
-                            Icon(
-                                Icons.Default.MoreVert, contentDescription = "More options",
-                                tint = Color.White
-                            )
-                        }
-                        DropdownMenu(
-                            expanded = viewModel.expanded,
-                            modifier = Modifier
-                                .align(Alignment.TopEnd),
-                            onDismissRequest = { viewModel.setExpandedToFalse() }
-                        ) {
-                            DropdownMenuItem(
-                                onClick = { viewModel.navigateToActiveBookings() }
-                            )
-                            {
-                                Text("My cars")
-                            }
-                            DropdownMenuItem(
-                                onClick = { viewModel.navigateToBookingsHistory() }
-                            ) {
-                                Text("Booking History")
-                            }
-                        }
-                    }
                 }
             }
         }
@@ -121,8 +95,8 @@ fun UserPageScreen(
                 .fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            items(carsFlow) { car ->
-                CarItem(car = car, { viewModel.navigateToBooking(car) })
+            items(bookingsFlow) { booking ->
+                BookingItem(booking = booking, {viewModel.returnBooking(booking)})
             }
         }
     }

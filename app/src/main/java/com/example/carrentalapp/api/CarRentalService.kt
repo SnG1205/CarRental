@@ -5,7 +5,7 @@ import com.example.carrentalapp.data.BookingRequest
 import com.example.carrentalapp.data.BookingResponse
 import com.example.carrentalapp.data.Car
 import com.example.carrentalapp.data.LoginRequest
-import com.example.carrentalapp.data.Token
+import com.example.carrentalapp.data.LoginResponse
 import com.example.carrentalapp.data.User
 import com.example.carrentalapp.util.Endpoints
 import retrofit2.Retrofit
@@ -77,19 +77,19 @@ interface CarRentalApiService {
     suspend fun createBooking(
         @Header("Authorization") authHeader: String,
         @Body bookingRequest: BookingRequest
-    ): BookingResponse
+    ): Booking
 
     @PATCH("${Endpoints.BOOKINGS_ENDPOINT}/{bookingId}/return")
     suspend fun returnBooking(
         @Header("Authorization") authHeader: String,
         @Path("bookingId") bookingId: Long
-    ): String
+    ): Booking
 
     //Auth methods
     @POST("${Endpoints.AUTHORIZATION_ENDPOINT}/login")
     suspend fun login(
         @Body loginRequest: LoginRequest
-    ): Token
+    ): LoginResponse
 }
 
 object CarRentalService {

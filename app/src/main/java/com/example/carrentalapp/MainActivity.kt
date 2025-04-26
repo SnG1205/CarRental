@@ -13,6 +13,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.carrentalapp.screens.add_car_page.AddCarPageScreen
+import com.example.carrentalapp.screens.book_car_page.BookCarPageScreen
+import com.example.carrentalapp.screens.bookings_history_page.BookingsHistoryPageScreen
+import com.example.carrentalapp.screens.bookings_page.BookingPageScreen
 import com.example.carrentalapp.screens.buy_stock_page.BuyStockPageScreen
 import com.example.carrentalapp.screens.create_user_page.CreateUserPageScreen
 import com.example.carrentalapp.screens.depot_page.DepotPageScreen
@@ -104,10 +107,46 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(
                             route = Routes.ADD_CAR_PAGE
-                        ){
+                        ) {
                             AddCarPageScreen(
                                 onPopBackStack = {
                                     navController.popBackStack()
+                                }
+                            )
+                        }
+                        composable(
+                            route = Routes.DISPLAY_USER_ACTIVE_BOOKINGS_PAGE
+                        ) {
+                            BookingPageScreen(
+                                onPopBackStack = {
+                                    navController.popBackStack()
+                                },
+                                onNavigate = {
+                                    navController.navigate(it.route)
+                                }
+                            )
+                        }
+                        composable(
+                            route = Routes.DISPLAY_USER_BOOKINGS_HISTORY_PAGE
+                        ) {
+                            BookingsHistoryPageScreen(
+                                onPopBackStack = {
+                                    navController.popBackStack()
+                                },
+                                onNavigate = {
+                                    navController.navigate(it.route)
+                                }
+                            )
+                        }
+                        composable(
+                            route = Routes.BOOK_CAR_PAGE
+                        ) {
+                            BookCarPageScreen(
+                                onPopBackStack = {
+                                    navController.popBackStack()
+                                },
+                                onNavigate = {
+                                    navController.navigate(it.route)
                                 }
                             )
                         }

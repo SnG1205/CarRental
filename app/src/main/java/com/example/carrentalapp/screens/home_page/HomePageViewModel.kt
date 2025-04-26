@@ -8,6 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.carrentalapp.api.CarRentalService
+import com.example.carrentalapp.data.Car
 import com.example.carrentalapp.data.LoginRequest
 import com.example.carrentalapp.util.Routes
 import com.example.carrentalapp.util.UiEvent
@@ -77,9 +78,11 @@ class HomePageViewModel @Inject constructor(
             viewModelScope.launch {
                 val response = CarRentalService.retrofitService.login(
                     LoginRequest(email, password)
-                ).token
-                holder.setToken(response)
-                Log.d("SharedHolder", response)
+                )
+                holder.setToken(response.token)
+                holder.setUserId(response.userId)
+                Log.d("SharedHolder", response.token) //Todo delete
+                Log.d("SharedHolder", response.userId.toString()) //Todo delete
                 sendUiEvent(UiEvent.Navigate(Routes.USER_PAGE))
                 clearAllFields()
             }
@@ -107,9 +110,23 @@ class HomePageViewModel @Inject constructor(
 @ActivityScoped
 class SharedStringHolder {
     private val _token = MutableStateFlow<String?>(null)
+    private val _userId = MutableStateFlow<Long?>(null)
+    private val _carToBook = MutableStateFlow<Car?>(null)
+
     val token: StateFlow<String?> = _token.asStateFlow()
+    val userId: StateFlow<Long?> = _userId.asStateFlow()
+    val carToBook: StateFlow<Car?> = _carToBook.asStateFlow()
+
 
     fun setToken(newToken: String) {
         _token.value = newToken
+    }
+
+    fun setUserId(newUserId: Long) {
+        _userId.value = newUserId
+    }
+
+    fun setCarToBook(newCarToBook: Car) {
+        _carToBook.value = newCarToBook
     }
 }

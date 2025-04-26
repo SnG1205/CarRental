@@ -1,8 +1,7 @@
-package com.example.carrentalapp.screens.user_page
+package com.example.carrentalapp.screens.bookings_history_page
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,37 +10,32 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.carrentalapp.screens.bookings_page.BookingItem
 import com.example.carrentalapp.util.UiEvent
 
 @Composable
-fun UserPageScreen(
+fun BookingsHistoryPageScreen(
     onPopBackStack: () -> Unit,
     onNavigate: (UiEvent.Navigate) -> Unit,
-    viewModel: UserPageViewModel = hiltViewModel()
-) {
+    viewModel: BookingsHistoryPageViewModel = hiltViewModel()
+){
     val scaffoldState = rememberScaffoldState()
-    val carsFlow by viewModel.carsFlow.collectAsState()
-    val userId by viewModel.userId.collectAsState()
+    val bookingsHistoryFlow by viewModel.bookingsHistoryFlow.collectAsState()
 
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
@@ -78,39 +72,12 @@ fun UserPageScreen(
                     Spacer(modifier = Modifier.width(20.dp))
 
                     Text(
-                        text = "Welcome, ${viewModel.firstName}!",
+                        text = "Bookings History",
                         style = MaterialTheme.typography.h5,
                         color = Color.White,
                         modifier = Modifier
                             .padding(0.dp, 5.dp, 0.dp, 0.dp)
                     )
-                    Spacer(Modifier.weight(1f))
-                    Box {
-                        IconButton(onClick = { viewModel.toggleDropdownState() }) {
-                            Icon(
-                                Icons.Default.MoreVert, contentDescription = "More options",
-                                tint = Color.White
-                            )
-                        }
-                        DropdownMenu(
-                            expanded = viewModel.expanded,
-                            modifier = Modifier
-                                .align(Alignment.TopEnd),
-                            onDismissRequest = { viewModel.setExpandedToFalse() }
-                        ) {
-                            DropdownMenuItem(
-                                onClick = { viewModel.navigateToActiveBookings() }
-                            )
-                            {
-                                Text("My cars")
-                            }
-                            DropdownMenuItem(
-                                onClick = { viewModel.navigateToBookingsHistory() }
-                            ) {
-                                Text("Booking History")
-                            }
-                        }
-                    }
                 }
             }
         }
@@ -121,8 +88,8 @@ fun UserPageScreen(
                 .fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            items(carsFlow) { car ->
-                CarItem(car = car, { viewModel.navigateToBooking(car) })
+            items(bookingsHistoryFlow) { booking ->
+                BookingItem(booking = booking, {})
             }
         }
     }
