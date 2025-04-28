@@ -17,7 +17,7 @@ import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-private const val BASE_URL = "http://10.0.2.2:8080" //Todo change to AWS IP of EC2
+private const val BASE_URL = "http://13.61.33.153:8080" //Todo change to AWS IP of EC2
 
 //Todo add serialization dependency
 //Todo serialization doesnt work as usual
