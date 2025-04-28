@@ -42,7 +42,6 @@ fun EmployeePageScreen(
     viewModel: EmployeePageViewModel = hiltViewModel()
 ){
     val scaffoldState = rememberScaffoldState()
-    val token by viewModel.token.collectAsState()
 
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->

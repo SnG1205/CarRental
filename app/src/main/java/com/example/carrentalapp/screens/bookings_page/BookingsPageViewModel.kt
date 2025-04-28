@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.carrentalapp.api.BookingService
 import com.example.carrentalapp.api.CarRentalService
 import com.example.carrentalapp.data.Booking
 import com.example.carrentalapp.screens.home_page.SharedStringHolder
@@ -24,8 +25,7 @@ class BookingsPageViewModel @Inject constructor(
     holder: SharedStringHolder
 ) : ViewModel() {
     val id = savedStateHandle.get<Int>("id")
-    val token: StateFlow<String?> = holder.token
-    val userId: StateFlow<Long?> = holder.userId
+    val userId: StateFlow<String?> = holder.userId
 
     private val _bookings = MutableStateFlow<List<Booking>>(emptyList())
     val bookingsFlow: StateFlow<List<Booking>> = _bookings.asStateFlow()
@@ -47,8 +47,7 @@ class BookingsPageViewModel @Inject constructor(
 
     fun returnBooking(booking: Booking){
         viewModelScope.launch {
-            CarRentalService.retrofitService.returnBooking(
-                "Bearer "+token.value!!,
+            BookingService.retrofitService.returnBooking(
                 booking.id!!
             )
         }
@@ -60,9 +59,7 @@ class BookingsPageViewModel @Inject constructor(
 
     private fun getActiveBookings(){
         viewModelScope.launch {
-            Log.d("Token Value", token.value!!)
-            val response = CarRentalService.retrofitService.getActiveBookingsForUser(
-                "Bearer "+token.value!!,
+            val response = BookingService.retrofitService.getActiveBookingsForUser(
                 userId.value!!
             )
             if (response != null) {

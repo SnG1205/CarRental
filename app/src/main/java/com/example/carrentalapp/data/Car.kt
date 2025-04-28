@@ -1,7 +1,7 @@
 package com.example.carrentalapp.data
 
 data class Car(
-    val id: Long?,
+    val id: String?,
     val brand: String,
     val model: String,
     val manufactureYear: Int,

@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.carrentalapp.api.BookingService
 import com.example.carrentalapp.api.CarRentalService
 import com.example.carrentalapp.data.Booking
 import com.example.carrentalapp.data.BookingRequest
@@ -28,8 +29,7 @@ import javax.inject.Inject
 class BookCarPageViewModel @Inject constructor(
     holder: SharedStringHolder
 ): ViewModel() {
-    val token: StateFlow<String?> = holder.token
-    val userId: StateFlow<Long?> = holder.userId
+    val userId: StateFlow<String?> = holder.userId
     val carToBook: StateFlow<Car?> = holder.carToBook
     @RequiresApi(Build.VERSION_CODES.O)
     val date = LocalDate.now()
@@ -46,14 +46,13 @@ class BookCarPageViewModel @Inject constructor(
         viewModelScope.launch {
             val date1 = LocalDate.now()
             Log.d("Date", date1.toString())
-            CarRentalService.retrofitService.createBooking(
-                "Bearer "+token.value!!,
+            BookingService.retrofitService.createBooking(
                 BookingRequest(
                     userId.value!!,
                     carToBook.value?.id!!,
                     LocalDate.now().toString(),
                     LocalDate.now().plusDays(2).toString() //Todo change this to date picker
-                    )
+                )
             )
             sendUiEvent(UiEvent.ShowSnackbar(
                 message = "Car was successfully rented"

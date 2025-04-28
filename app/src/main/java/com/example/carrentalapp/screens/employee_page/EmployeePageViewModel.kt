@@ -24,8 +24,6 @@ class EmployeePageViewModel @Inject constructor(
 ) : ViewModel() {
     val id = savedStateHandle.get<Int>("id")
 
-    val token: StateFlow<String?> = holder.token
-
     var firstName by mutableStateOf("")
         private set
 

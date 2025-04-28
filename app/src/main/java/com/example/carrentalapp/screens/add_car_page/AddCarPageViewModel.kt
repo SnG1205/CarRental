@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.carrentalapp.api.CarRentalService
+import com.example.carrentalapp.api.CarService
 import com.example.carrentalapp.data.Car
 import com.example.carrentalapp.screens.home_page.SharedStringHolder
 import com.example.carrentalapp.util.UiEvent
@@ -22,8 +23,6 @@ class AddCarPageViewModel @Inject constructor(
 ) : ViewModel() {
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
-
-    val token: StateFlow<String?> = holder.token
 
     var brand by mutableStateOf("")
         private set
@@ -66,8 +65,7 @@ class AddCarPageViewModel @Inject constructor(
                 val carManufactureYear = manufactureYear.toInt()
                 val carPricePerUsd = pricePerDayUsd.toDouble()
                 viewModelScope.launch {
-                    CarRentalService.retrofitService.createCar(
-                        "Bearer "+token.value!!,
+                    CarService.retrofitService.createCar(
                         Car(
                             null,
                             brand,

@@ -8,6 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.carrentalapp.api.CarRentalService
+import com.example.carrentalapp.api.UserService
 import com.example.carrentalapp.data.Car
 import com.example.carrentalapp.data.LoginRequest
 import com.example.carrentalapp.util.Routes
@@ -59,13 +60,11 @@ class HomePageViewModel @Inject constructor(
         }
         else if (checkIfAdmin()) {
             viewModelScope.launch {
-                val response = CarRentalService.retrofitService.login(
+                val response = UserService.retrofitService.login(
                     LoginRequest(email, password)
                 )
-                holder.setToken(response.token)
-                holder.setUserId(response.userId)
-                Log.d("SharedHolder", response.token) //Todo delete
-                Log.d("SharedHolder", response.userId.toString()) //Todo delete
+                holder.setUserId(response.id)
+                Log.d("SharedHolder", response.id) //Todo delete
                 sendUiEvent(UiEvent.Navigate(Routes.ADMIN_PAGE))
                 clearAllFields()
             }
@@ -85,13 +84,11 @@ class HomePageViewModel @Inject constructor(
 
         }*/ else {
             viewModelScope.launch {
-                val response = CarRentalService.retrofitService.login(
+                val response = UserService.retrofitService.login(
                     LoginRequest(email, password)
                 )
-                holder.setToken(response.token)
-                holder.setUserId(response.userId)
-                Log.d("SharedHolder", response.token) //Todo delete
-                Log.d("SharedHolder", response.userId.toString()) //Todo delete
+                holder.setUserId(response.id)
+                Log.d("SharedHolder", response.id) //Todo delete
                 sendUiEvent(UiEvent.Navigate(Routes.USER_PAGE))
                 clearAllFields()
             }
@@ -126,20 +123,14 @@ class HomePageViewModel @Inject constructor(
 
 @ActivityScoped
 class SharedStringHolder {
-    private val _token = MutableStateFlow<String?>(null)
-    private val _userId = MutableStateFlow<Long?>(null)
+    private val _userId = MutableStateFlow<String?>(null)
     private val _carToBook = MutableStateFlow<Car?>(null)
 
-    val token: StateFlow<String?> = _token.asStateFlow()
-    val userId: StateFlow<Long?> = _userId.asStateFlow()
+    val userId: StateFlow<String?> = _userId.asStateFlow()
     val carToBook: StateFlow<Car?> = _carToBook.asStateFlow()
 
 
-    fun setToken(newToken: String) {
-        _token.value = newToken
-    }
-
-    fun setUserId(newUserId: Long) {
+    fun setUserId(newUserId: String) {
         _userId.value = newUserId
     }
 

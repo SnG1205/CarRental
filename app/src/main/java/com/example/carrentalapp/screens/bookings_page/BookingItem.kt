@@ -26,7 +26,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.carrentalapp.data.Booking
-import kotlin.math.exp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,17 +59,17 @@ fun BookingItem(
                     Arrangement.spacedBy(5.dp)
                 ) {
                     Text(
-                        text = booking.car.brand,
+                        text = booking.userId,
                         fontSize = 20.sp,
                         color = Color(0xff3e3d32)
                     )
                     Text(
-                        text = booking.car.model,
+                        text = booking.carId,
                         fontSize = 20.sp,
                         color = Color(0xff3e3d32)
                     )
                     Text(
-                        text = booking.car.licensePlate,
+                        text = booking.startDate,
                         fontSize = 20.sp,
                         color = Color(0xff3e3d32)
                     )

@@ -3,6 +3,7 @@ package com.example.carrentalapp.screens.bookings_history_page
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.carrentalapp.api.BookingService
 import com.example.carrentalapp.api.CarRentalService
 import com.example.carrentalapp.data.Booking
 import com.example.carrentalapp.screens.home_page.SharedStringHolder
@@ -21,8 +22,7 @@ import javax.inject.Inject
 class BookingsHistoryPageViewModel @Inject constructor(
     holder: SharedStringHolder
 ): ViewModel() {
-    val token: StateFlow<String?> = holder.token
-    val userId: StateFlow<Long?> = holder.userId
+    val userId: StateFlow<String?> = holder.userId
 
     private val _bookingsHistory = MutableStateFlow<List<Booking>>(emptyList())
     val bookingsHistoryFlow: StateFlow<List<Booking>> = _bookingsHistory.asStateFlow()
@@ -40,9 +40,7 @@ class BookingsHistoryPageViewModel @Inject constructor(
 
     private fun getBookingHistory(){
         viewModelScope.launch {
-            Log.d("Token Value", token.value!!)
-            val response = CarRentalService.retrofitService.getBookingsHistoryForUser(
-                "Bearer "+token.value!!,
+            val response = BookingService.retrofitService.getBookingsHistoryForUser(
                 userId.value!!
             )
             if (response != null) {

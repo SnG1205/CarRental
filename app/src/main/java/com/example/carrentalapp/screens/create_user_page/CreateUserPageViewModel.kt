@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.carrentalapp.api.CarRentalService
+import com.example.carrentalapp.api.UserService
 import com.example.carrentalapp.data.User
 import com.example.carrentalapp.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -47,7 +48,7 @@ class CreateUserPageViewModel @Inject constructor(
         if(!checkIfFieldsAreEmpty()){
             viewModelScope.launch {
                 try {
-                    CarRentalService.retrofitService.createUser(
+                    UserService.retrofitService.createUser(
                         User(username = username, email = email, password = password, id = null)
                     )
                     sendUiEvent(UiEvent.ShowSnackbar(
