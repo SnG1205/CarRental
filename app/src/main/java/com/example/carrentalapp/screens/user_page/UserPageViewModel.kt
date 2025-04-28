@@ -7,7 +7,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.carrentalapp.api.CarRentalService
 import com.example.carrentalapp.api.CarService
 import com.example.carrentalapp.api.UserService
 import com.example.carrentalapp.data.Car

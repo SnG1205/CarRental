@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.carrentalapp.api.CarRentalService
 import com.example.carrentalapp.api.CarService
 import com.example.carrentalapp.data.Car
 import com.example.carrentalapp.screens.home_page.SharedStringHolder

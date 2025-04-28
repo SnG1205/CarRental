@@ -16,13 +16,10 @@ import com.example.carrentalapp.screens.add_car_page.AddCarPageScreen
 import com.example.carrentalapp.screens.book_car_page.BookCarPageScreen
 import com.example.carrentalapp.screens.bookings_history_page.BookingsHistoryPageScreen
 import com.example.carrentalapp.screens.bookings_page.BookingPageScreen
-import com.example.carrentalapp.screens.buy_stock_page.BuyStockPageScreen
 import com.example.carrentalapp.screens.create_user_page.CreateUserPageScreen
-import com.example.carrentalapp.screens.depot_page.DepotPageScreen
 import com.example.carrentalapp.screens.display_users_page.DisplayUsersPageScreen
 import com.example.carrentalapp.screens.employee_page.EmployeePageScreen
 import com.example.carrentalapp.screens.home_page.HomePageScreen
-import com.example.carrentalapp.screens.sell_stock_page.SellStockPageScreen
 import com.example.carrentalapp.screens.user_page.UserPageScreen
 import com.example.carrentalapp.ui.theme.CarRentalTheme
 import com.example.carrentalapp.util.Routes
@@ -147,58 +144,6 @@ class MainActivity : ComponentActivity() {
                                 },
                                 onNavigate = {
                                     navController.navigate(it.route)
-                                }
-                            )
-                        }
-                        composable(
-                            route = Routes.BUY_STOCK_PAGE + "?clientId={clientId}",
-                            arguments = listOf(
-                                navArgument(name = "clientId") {
-                                    type = NavType.IntType
-                                    defaultValue = 0
-                                }
-                            )
-                        ) {
-                            BuyStockPageScreen(
-                                onPopBackStack = {
-                                    navController.popBackStack()
-                                }
-                            )
-                        }
-                        composable(
-                            route = Routes.DEPOT_PAGE + "?clientId={clientId}",
-                            arguments = listOf(
-                                navArgument(name = "clientId") {
-                                    type = NavType.IntType
-                                    defaultValue = 0
-                                }
-                            )
-                        ) {
-                            DepotPageScreen(
-                                onPopBackStack = {
-                                    navController.popBackStack()
-                                },
-                                onNavigate = {
-                                    navController.navigate(it.route)
-                                }
-                            )
-                        }
-                        composable(
-                            route = Routes.SELL_STOCK_PAGE + "?clientId={clientId}" + "?symbols={symbols}",
-                            arguments = listOf(
-                                navArgument(name = "clientId") {
-                                    type = NavType.IntType
-                                    defaultValue = 0
-                                },
-                                navArgument(name = "symbols") {
-                                    type = NavType.StringType
-                                    defaultValue = ""
-                                }
-                            )
-                        ) {
-                            SellStockPageScreen(
-                                onPopBackStack = {
-                                    navController.popBackStack()
                                 }
                             )
                         }

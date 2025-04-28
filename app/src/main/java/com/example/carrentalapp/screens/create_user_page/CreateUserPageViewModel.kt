@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.carrentalapp.api.CarRentalService
 import com.example.carrentalapp.api.UserService
 import com.example.carrentalapp.data.User
 import com.example.carrentalapp.util.UiEvent

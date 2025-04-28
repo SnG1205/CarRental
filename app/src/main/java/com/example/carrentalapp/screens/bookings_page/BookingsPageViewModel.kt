@@ -5,7 +5,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.carrentalapp.api.BookingService
-import com.example.carrentalapp.api.CarRentalService
 import com.example.carrentalapp.data.Booking
 import com.example.carrentalapp.screens.home_page.SharedStringHolder
 import com.example.carrentalapp.util.Routes

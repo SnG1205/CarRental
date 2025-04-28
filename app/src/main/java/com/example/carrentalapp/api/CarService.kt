@@ -18,8 +18,6 @@ import retrofit2.http.Path
 
 private const val BASE_URL = "http://10.0.2.2:8081" //Todo change to AWS IP of EC2
 
-//Todo add serialization dependency
-//Todo serialization doesnt work as usual
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(GsonConverterFactory.create())
     //.addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))

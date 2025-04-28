@@ -9,7 +9,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.carrentalapp.api.BookingService
-import com.example.carrentalapp.api.CarRentalService
 import com.example.carrentalapp.data.Booking
 import com.example.carrentalapp.data.BookingRequest
 import com.example.carrentalapp.data.Car
@@ -28,21 +27,22 @@ import javax.inject.Inject
 @HiltViewModel
 class BookCarPageViewModel @Inject constructor(
     holder: SharedStringHolder
-): ViewModel() {
+) : ViewModel() {
     val userId: StateFlow<String?> = holder.userId
     val carToBook: StateFlow<Car?> = holder.carToBook
+
     @RequiresApi(Build.VERSION_CODES.O)
     val date = LocalDate.now()
 
-    private val _uiEvent =  Channel<UiEvent>()
+    private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    fun popBack(){
+    fun popBack() {
         sendUiEvent(UiEvent.PopBackStack)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun bookCar(){
+    fun bookCar() {
         viewModelScope.launch {
             val date1 = LocalDate.now()
             Log.d("Date", date1.toString())
@@ -54,9 +54,11 @@ class BookCarPageViewModel @Inject constructor(
                     LocalDate.now().plusDays(2).toString() //Todo change this to date picker
                 )
             )
-            sendUiEvent(UiEvent.ShowSnackbar(
-                message = "Car was successfully rented"
-            ))
+            sendUiEvent(
+                UiEvent.ShowSnackbar(
+                    message = "Car was successfully rented"
+                )
+            )
         }
     }
 

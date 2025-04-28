@@ -2,9 +2,7 @@ package com.example.carrentalapp.screens.display_users_page
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.carrentalapp.api.CarRentalService
 import com.example.carrentalapp.api.UserService
-import com.example.carrentalapp.data.Client
 import com.example.carrentalapp.data.User
 import com.example.carrentalapp.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
