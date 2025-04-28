@@ -26,7 +26,7 @@ import com.example.carrentalapp.data.Booking
 @Composable
 fun BookingHistoryItem(
     booking: Booking,
-){
+) {
 
 
     ElevatedCard(
@@ -44,40 +44,35 @@ fun BookingHistoryItem(
         ) {
             Column(
                 modifier = Modifier,
-                verticalArrangement = Arrangement.spacedBy(10.dp)
+                Arrangement.spacedBy(5.dp)
             ) {
-                Row(
-                    modifier = Modifier,
-                    Arrangement.spacedBy(5.dp)
-                ) {
-                    Text(
-                        text = booking.userId,
-                        fontSize = 20.sp,
-                        color = Color(0xff3e3d32)
-                    )
-                    Text(
-                        text = booking.carId,
-                        fontSize = 20.sp,
-                        color = Color(0xff3e3d32)
-                    )
-                    Text(
-                        text = booking.startDate,
-                        fontSize = 20.sp,
-                        color = Color(0xff3e3d32)
-                    )
-                }
-                Spacer(modifier = Modifier.height(1.dp))
-                Row(
-                    modifier = Modifier,
-                    Arrangement.spacedBy(5.dp)
-                ) {
-                    Text(
-                        text = "End date: ${booking.endDate.toString()}",
-                        fontSize = 20.sp,
-                        color = Color(0xff3e3d32)
-                    )
-                }
+                Text(
+                    text = booking.userId,
+                    fontSize = 17.sp,
+                    color = Color(0xff3e3d32)
+                )
+                Text(
+                    text = booking.carId,
+                    fontSize = 17.sp,
+                    color = Color(0xff3e3d32)
+                )
+                Text(
+                    text = "End date: ${booking.endDate.toString()}",
+                    fontSize = 17.sp,
+                    color = Color(0xff3e3d32)
+                )
             }
+            Spacer(modifier = Modifier.height(1.dp))
+            /*Row(
+                modifier = Modifier,
+                Arrangement.spacedBy(5.dp)
+            ) {
+                Text(
+                    text = "End date: ${booking.endDate.toString()}",
+                    fontSize = 20.sp,
+                    color = Color(0xff3e3d32)
+                )
+            }*/
             Column(
                 modifier = Modifier
                     .padding(10.dp, 0.dp, 0.dp, 0.dp)
