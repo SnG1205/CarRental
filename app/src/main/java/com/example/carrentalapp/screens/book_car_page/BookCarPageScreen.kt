@@ -2,6 +2,7 @@ package com.example.carrentalapp.screens.book_car_page
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -26,6 +27,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -91,30 +93,39 @@ fun BookCarPageScreen(
             }
         }
     ) {
-        Column {
-            CarItem(car = car.value!!) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ){
+            Column(modifier = Modifier
+                .padding(5.dp)
+                /*.fillMaxSize()*/,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                BookCarItem(car = car.value!!)
+                Spacer(
+                    modifier = Modifier
+                        .height(20.dp)
+                )
+                androidx.compose.material.Button(
+                    modifier = Modifier
+                        .width(200.dp)
+                        .height(100.dp)
+                        .padding(0.dp, 0.dp, 0.dp, 25.dp),
+                    colors = androidx.compose.material.ButtonDefaults.buttonColors(
+                        backgroundColor = Color(0xFFF4511E),
+                        contentColor = Color.White
+                    ),
+                    shape = RoundedCornerShape(50),
+                    onClick = { viewModel.bookCar() }
+                ) {
+                    Text(text = "Book Car", fontWeight = FontWeight.Bold, fontSize = 22.sp)
+                }
+                /*Text(text = viewModel.date.toString())
+                Text(text = userId.value!!.toString())
+                Text(text = car.value!!.id!!.toString())*/
             }
-            Spacer(
-                modifier = Modifier
-                    .height(20.dp)
-            )
-            androidx.compose.material.Button(
-                modifier = Modifier
-                    .width(170.dp)
-                    .height(70.dp)
-                    .padding(0.dp, 0.dp, 0.dp, 25.dp),
-                colors = androidx.compose.material.ButtonDefaults.buttonColors(
-                    backgroundColor = Color(0xFFF4511E),
-                    contentColor = Color.White
-                ),
-                shape = RoundedCornerShape(50),
-                onClick = { viewModel.bookCar() }
-            ) {
-                Text(text = "Book Car", fontWeight = FontWeight.Bold, fontSize = 16.sp)
-            }
-            Text(text = viewModel.date.toString())
-            Text(text = userId.value!!.toString())
-            Text(text = car.value!!.id!!.toString())
         }
     }
 }

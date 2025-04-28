@@ -1,7 +1,7 @@
-package com.example.carrentalapp.screens.user_page
+package com.example.carrentalapp.screens.bookings_history_page
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,22 +26,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.carrentalapp.data.Car
+import com.example.carrentalapp.data.Booking
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CarItem(
-    car: Car,
-    event: () -> Unit
-) {
+fun BookingHistoryItem(
+    booking: Booking,
+){
+
+
     ElevatedCard(
-        onClick = event,
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
         ),
-        colors = CardDefaults.cardColors(Color(0xffd9c5ac)),
+        colors = CardDefaults.cardColors(Color(0xffd6d6c1)),
         modifier = Modifier
-            .size(width = 430.dp, height = 125.dp)
+            .clickable(enabled = false, onClick = {})
+            .size(width = 430.dp, height = 100.dp)
     ) {
         Row(
             modifier = Modifier
@@ -58,32 +57,32 @@ fun CarItem(
                     Arrangement.spacedBy(5.dp)
                 ) {
                     Text(
-                        text = car.brand,
+                        text = booking.car.brand,
                         fontSize = 20.sp,
                         color = Color(0xff3e3d32)
                     )
                     Text(
-                        text = car.model,
+                        text = booking.car.model,
+                        fontSize = 20.sp,
+                        color = Color(0xff3e3d32)
+                    )
+                    Text(
+                        text = booking.car.licensePlate,
                         fontSize = 20.sp,
                         color = Color(0xff3e3d32)
                     )
                 }
+                Spacer(modifier = Modifier.height(1.dp))
                 Row(
                     modifier = Modifier,
                     Arrangement.spacedBy(5.dp)
                 ) {
                     Text(
-                        text = "License plate: ${car.licensePlate}",
-                        fontSize = 18.sp,
+                        text = "End date: ${booking.endDate.toString()}",
+                        fontSize = 20.sp,
                         color = Color(0xff3e3d32)
                     )
-
                 }
-                Text(
-                    text = "Year: ${car.manufactureYear.toString()}",
-                    fontSize = 18.sp,
-                    color = Color(0xff3e3d32)
-                )
             }
             Column(
                 modifier = Modifier
@@ -91,18 +90,17 @@ fun CarItem(
                     .fillMaxSize()
                     .align(Alignment.Bottom)
             ) {
-                Spacer(modifier = Modifier.height(67.dp))
+                Spacer(modifier = Modifier.height(47.dp))
                 Text(
-                    text = "Price per day: ${car.pricePerDayUsd.toString()}",
+                    text = "Total cost: ${booking.totalCostUsd.toString()}",
                     fontSize = 20.sp,
-                    textAlign = TextAlign.Right,
                     modifier = Modifier
-                        .align(Alignment.End)
+                        .fillMaxSize(),
+                    textAlign = TextAlign.Right
                 )
             }
             /*Text(
-                text = "Price per day: ${car.pricePerDayUsd.toString()}",
-                fontSize = 20.sp,
+                text = "Total cost: ${booking.totalCostUsd.toString()}",
                 modifier = Modifier
                     .fillMaxSize()
                     .align(Alignment.Bottom),

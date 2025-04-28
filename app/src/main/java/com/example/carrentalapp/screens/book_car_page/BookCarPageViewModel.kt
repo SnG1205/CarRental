@@ -55,6 +55,9 @@ class BookCarPageViewModel @Inject constructor(
                     LocalDate.now().plusDays(2).toString() //Todo change this to date picker
                     )
             )
+            sendUiEvent(UiEvent.ShowSnackbar(
+                message = "Car was successfully rented"
+            ))
         }
     }
 

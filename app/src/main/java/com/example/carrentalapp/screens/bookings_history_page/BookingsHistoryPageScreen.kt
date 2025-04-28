@@ -89,7 +89,7 @@ fun BookingsHistoryPageScreen(
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             items(bookingsHistoryFlow) { booking ->
-                BookingItem(booking = booking, {})
+                BookingHistoryItem(booking = booking)
             }
         }
     }

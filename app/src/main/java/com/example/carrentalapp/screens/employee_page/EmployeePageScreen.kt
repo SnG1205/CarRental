@@ -139,21 +139,6 @@ fun EmployeePageScreen(
             ) {
                 Text(text = "Display Users", fontSize = 25.sp)
             }
-            Button(
-                modifier = Modifier
-                    .width(230.dp)
-                    .height(130.dp)
-                    .padding(0.dp, 0.dp, 0.dp, 60.dp),
-                colors = androidx.compose.material.ButtonDefaults.buttonColors(
-                    backgroundColor = Color(0xFFF3E5F5),
-                    contentColor = Color(0xFF424242)
-                ),
-                shape = RoundedCornerShape(50),
-                onClick = { viewModel.displayCars() }
-            ) {
-                Text(text = "Display Cars", fontSize = 25.sp)
-            }
-            Text(text = token.toString())
         }
     }
 }

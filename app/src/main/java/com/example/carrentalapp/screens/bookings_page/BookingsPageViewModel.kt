@@ -53,7 +53,9 @@ class BookingsPageViewModel @Inject constructor(
             )
         }
         //navigateToUserPage()
-        sendUiEvent(UiEvent.PopBackStack)
+        sendUiEvent(UiEvent.ShowSnackbar(
+            message = "Car was returned successfully"
+        ))
     }
 
     private fun getActiveBookings(){

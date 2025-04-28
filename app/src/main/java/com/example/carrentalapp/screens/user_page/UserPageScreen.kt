@@ -78,7 +78,7 @@ fun UserPageScreen(
                     Spacer(modifier = Modifier.width(20.dp))
 
                     Text(
-                        text = "Welcome, ${viewModel.firstName}!",
+                        text = "Available Cars",
                         style = MaterialTheme.typography.h5,
                         color = Color.White,
                         modifier = Modifier

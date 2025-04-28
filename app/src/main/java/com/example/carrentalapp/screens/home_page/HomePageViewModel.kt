@@ -52,14 +52,23 @@ class HomePageViewModel @Inject constructor(
     }
 
     fun navigateToLogin() {//Todo add validation of credentials via extra method
-        var isAdmin: Boolean? = true
-
-        if (isAdmin == null) {
-            sendUiEvent(
-                UiEvent.ShowSnackbar(
-                    message = "User with given credentials wasn`t found"
+        if(checkIfEmpty()){
+            sendUiEvent(UiEvent.ShowSnackbar(
+                message = "Fields can not be empty"
+            ))
+        }
+        else if (checkIfAdmin()) {
+            viewModelScope.launch {
+                val response = CarRentalService.retrofitService.login(
+                    LoginRequest(email, password)
                 )
-            )
+                holder.setToken(response.token)
+                holder.setUserId(response.userId)
+                Log.d("SharedHolder", response.token) //Todo delete
+                Log.d("SharedHolder", response.userId.toString()) //Todo delete
+                sendUiEvent(UiEvent.Navigate(Routes.ADMIN_PAGE))
+                clearAllFields()
+            }
         } /*else if (isAdmin) {
             viewModelScope.launch { //Todo just a reminder that here is some crazy shit with FlowStates
                 val response = CarRentalService.retrofitService.login(
@@ -93,6 +102,14 @@ class HomePageViewModel @Inject constructor(
     fun navigateToRegister() {
         sendUiEvent(UiEvent.Navigate(Routes.REGISTER_PAGE))
         clearAllFields()
+    }
+
+    private fun checkIfAdmin(): Boolean{
+        return email == "admin@super.com" && password == "admin"
+    }
+
+    private fun checkIfEmpty(): Boolean{
+        return email == "" || password == ""
     }
 
     private fun clearAllFields(){

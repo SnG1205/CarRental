@@ -15,7 +15,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.OffsetMapping
+import androidx.compose.ui.text.input.TransformedText
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -52,7 +56,7 @@ fun HomePageScreen(
                 elevation = 3.dp,
                 backgroundColor = Color(0xFFD50000),
             ) {
-                Text(text = "Banking App", style = MaterialTheme.typography.h5, color = Color.White)
+                Text(text = "Car Rental Application", style = MaterialTheme.typography.h5, color = Color.White)
             }
         }
     ) {
@@ -94,28 +98,29 @@ fun HomePageScreen(
                 placeholder = {
                     Text(text = "Password")
                 },
+                visualTransformation = VisualTransformation {
+                    TransformedText(
+                        AnnotatedString("*".repeat(it.length)),
+                        OffsetMapping.Identity)
+                },
                 onValueChange = {
                     viewModel.changePassword(it)
                 })
-            OutlinedButton(
+            Button(
                 modifier = Modifier
                     .width(170.dp)
-                    .height(50.dp),
+                    .height(50.dp)
+                    .padding(0.dp, 0.dp, 0.dp, 5.dp),
                 colors = androidx.compose.material.ButtonDefaults.buttonColors(
-                    backgroundColor = Color(0xffd5fa6b),
+                    backgroundColor = Color(0xFFF3E5F5),
+                    contentColor = Color(0xFF424242)
                 ),
-                border = BorderStroke(0.5.dp, Color.Black),
                 shape = RoundedCornerShape(50),
-                elevation = androidx.compose.material.ButtonDefaults.elevation(
-                    defaultElevation = 8.dp
-                ),
                 onClick = { viewModel.navigateToLogin() }
             ) {
                 Text(
                     text = "Login",
-                    fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
-                    color = Color(0xffcb5cfa)
                 )
             }
             Text(
@@ -124,25 +129,21 @@ fun HomePageScreen(
                 text = "Don`t have an account yet? Create one below.",
                 //fontWeight = FontWeight.Bold
             )
-            OutlinedButton(
+            Button(
                 modifier = Modifier
                     .width(170.dp)
-                    .height(50.dp),
+                    .height(50.dp)
+                    .padding(0.dp, 0.dp, 0.dp, 5.dp),
                 colors = androidx.compose.material.ButtonDefaults.buttonColors(
-                    backgroundColor = Color(0xffd5fa6b),
+                    backgroundColor = Color(0xFFF3E5F5),
+                    contentColor = Color(0xFF424242)
                 ),
-                border = BorderStroke(0.5.dp, Color.Black),
                 shape = RoundedCornerShape(50),
-                elevation = androidx.compose.material.ButtonDefaults.elevation(
-                    defaultElevation = 8.dp
-                ),
                 onClick = { viewModel.navigateToRegister() }
             ) {
                 Text(
                     text = "Register",
-                    fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
-                    color = Color(0xffcb5cfa)
                 )
             }
             Text(text = viewModel.token)

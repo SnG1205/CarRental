@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.carrentalapp.screens.bookings_history_page.BookingHistoryItem
 import com.example.carrentalapp.screens.user_page.CarItem
 import com.example.carrentalapp.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -79,7 +80,7 @@ fun BookingPageScreen(
                     Spacer(modifier = Modifier.width(20.dp))
 
                     Text(
-                        text = "My Bookings!",
+                        text = "Active Bookings",
                         style = MaterialTheme.typography.h5,
                         color = Color.White,
                         modifier = Modifier

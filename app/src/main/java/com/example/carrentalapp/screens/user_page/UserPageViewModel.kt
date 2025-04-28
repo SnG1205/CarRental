@@ -34,8 +34,6 @@ class UserPageViewModel @Inject constructor(
     private val _cars = MutableStateFlow<List<Car>>(emptyList())
     val carsFlow: StateFlow<List<Car>> = _cars.asStateFlow()
 
-    var firstName by mutableStateOf("") //Todo try to initialize as null to then set a Client object inside init
-        private set
     var expanded by mutableStateOf(false)
         private set
 

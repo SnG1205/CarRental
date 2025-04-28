@@ -3,7 +3,9 @@ package com.example.carrentalapp.screens.bookings_page
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.DropdownMenu
@@ -17,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
@@ -59,35 +62,46 @@ fun BookingItem(
                     Text(
                         text = booking.car.brand,
                         fontSize = 20.sp,
-                        color = Color(0xff34a3d9)
+                        color = Color(0xff3e3d32)
                     )
                     Text(
                         text = booking.car.model,
                         fontSize = 20.sp,
-                        color = Color(0xff3c4a52)
+                        color = Color(0xff3e3d32)
+                    )
+                    Text(
+                        text = booking.car.licensePlate,
+                        fontSize = 20.sp,
+                        color = Color(0xff3e3d32)
                     )
                 }
+                Spacer(modifier = Modifier.height(1.dp))
                 Row(
                     modifier = Modifier,
                     Arrangement.spacedBy(5.dp)
                 ) {
                     Text(
-                        text = booking.car.licensePlate,
-                        fontSize = 20.sp,
-                        color = Color(0xff333333)
-                    )
-                    Text(
-                        text = booking.endDate.toString(),
+                        text = "End date: ${booking.endDate.toString()}",
                         fontSize = 20.sp,
                         color = Color(0xff3e3d32)
                     )
                 }
             }
-            Text(
-                text = booking.totalCostUsd.toString(),
-                modifier = Modifier.fillMaxSize(),
-                textAlign = TextAlign.Right
-            )
+            Column(
+                modifier = Modifier
+                    .padding(10.dp, 0.dp, 0.dp, 0.dp)
+                    .fillMaxSize()
+                    .align(Alignment.Bottom)
+            ) {
+                Spacer(modifier = Modifier.height(47.dp))
+                Text(
+                    text = "Total cost: ${booking.totalCostUsd.toString()}",
+                    fontSize = 20.sp,
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    textAlign = TextAlign.Right
+                )
+            }
             DropdownMenu(
                 expanded = expanded,
                 /*modifier = Modifier
